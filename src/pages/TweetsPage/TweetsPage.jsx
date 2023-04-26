@@ -1,5 +1,9 @@
 import React from "react";
-
+import TweetCard from "../../components/TweetCard";
 export default function TweetsPage() {
-  return <div>This is TweetsPage</div>;
+  return (
+    <div>
+      <TweetCard />
+    </div>
+  );
 }
