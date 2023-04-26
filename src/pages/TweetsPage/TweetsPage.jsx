@@ -8,14 +8,14 @@ export const instanceBacEnd = axios.create({
 
 export default function TweetsPage() {
   useEffect(() => {
-    const fetchUsers = async () => {
+    async function fetchUsers() {
       try {
         const { data } = await instanceBacEnd.get(`/users`);
         console.log(data);
       } catch (error) {
         console.log(error.message);
       }
-    };
+    }
     fetchUsers();
   }, []);
   return (
