@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TweetsList from "../../components/TweetsList";
+import FilterSelector from "../../components/FilterSelector";
 import axios from "axios";
 import { PageWrapper, Button, ButtonText } from "./TweetsPage.styled";
 
@@ -19,7 +20,6 @@ export default function TweetsPage() {
           `/users?page=${page}&limit=${pageSize}`
         );
 
-        console.log(data);
         setTweets(data);
         //We can define the last page this way, but that's a lot of queries
         // const { dataNext } = await instanceBacEnd.get(
@@ -40,6 +40,7 @@ export default function TweetsPage() {
   };
   return (
     <PageWrapper>
+      <FilterSelector />
       <TweetsList tweets={tweets} />
       {!isLastPage && (
         <Button onClick={handleClick}>
