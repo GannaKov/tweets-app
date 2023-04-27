@@ -44,13 +44,15 @@ export const FollowersQuantity = styled.p`
   line-height: 1;
 `;
 export const Button = styled.button`
+  background-color: ${(props) =>
+    props.isFollowing ? "rgba(92, 211, 168, 1)" : "rgba(235, 216, 255, 1)"};
   margin: 0 auto;
   width: 196px;
   height: 50px;
   padding: 14px auto;
   border-radius: 10.31px;
   border: transparent;
-  background-color: rgba(235, 216, 255, 1);
+  /* background-color: rgba(235, 216, 255, 1); */
 `;
 export const ButtonText = styled.p`
   color: rgba(55, 55, 55, 1);
