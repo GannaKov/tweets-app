@@ -54,7 +54,9 @@ export default function TweetCard({ tweet }) {
         <img src={currentTweet.avatar} alt={tweet.name} />
       </AvatarWrapper>
       <TweetsQuantity>{currentTweet.tweets} tweets</TweetsQuantity>
-      <FollowersQuantity>{currentTweet.followers} Followers</FollowersQuantity>
+      <FollowersQuantity>
+        {currentTweet.followers.toLocaleString("en-US")} Followers
+      </FollowersQuantity>
       <Button onClick={handleClick} isFollowing={isFollowing}>
         <ButtonText>{isFollowing ? "Following" : "Follow"}</ButtonText>
       </Button>
