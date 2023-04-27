@@ -8,12 +8,14 @@ import {
   ButtonText,
 } from "./TweetCard.styled";
 
-export default function TweetCard() {
+export default function TweetCard({ tweet }) {
   return (
     <TweetWrapper>
-      <AvatarWrapper></AvatarWrapper>
-      <TweetsQuantity>777 tweets</TweetsQuantity>
-      <FollowersQuantity>100,500 Followers</FollowersQuantity>
+      <AvatarWrapper>
+        <img src={tweet.avatar} alt={tweet.name} />
+      </AvatarWrapper>
+      <TweetsQuantity>{tweet.tweets} tweets</TweetsQuantity>
+      <FollowersQuantity>{tweet.followers} Followers</FollowersQuantity>
       <Button>
         <ButtonText>Follow</ButtonText>
       </Button>

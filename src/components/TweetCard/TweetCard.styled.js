@@ -20,6 +20,12 @@ export const AvatarWrapper = styled.div`
   height: 80px;
   border: 4px solid rgba(235, 216, 255, 1);
   border-radius: 100%;
+  overflow: hidden;
+  img {
+    /* width: 100%;
+    height: 100%; */
+    object-fit: cover;
+  }
 `;
 export const TweetsQuantity = styled.p`
   margin: 0 auto 16px;
