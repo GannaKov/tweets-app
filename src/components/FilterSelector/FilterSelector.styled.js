@@ -29,14 +29,17 @@ export const CustomSelect = styled(ReactSelect)`
     color: #8baa36;
   } */
   .react-select__menu {
+    margin-top: 0px;
     width: 246px;
     /* margin-bottom: 0px; */
   }
   .react-select__option {
     cursor: pointer;
+    background-color: transparent;
+    color: #22252a;
   }
-  .react-select__option:hover,
-  .react-select__option:focus {
+  .react-select__option:focus,
+  .react-select__option:hover {
     color: rgba(235, 216, 255, 1);
     background-color: rgba(71, 28, 169, 1);
   }

@@ -14,13 +14,13 @@ export default function TweetsPage() {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(3); //setPageSize
   const [isLastPage, setIsLastPage] = useState(false);
+  const [selectedType, setSelectedType] = useState("show-all");
   //-----
   useEffect(() => {
     async function fetchCurrentUsers() {
       try {
         const result = await instanceBacEnd.get(`/currentUser/3`);
         setFollowings(result.data.followings);
-        console.log("current", result.data.followings);
       } catch {}
     }
     fetchCurrentUsers();
@@ -29,13 +29,24 @@ export default function TweetsPage() {
   useEffect(() => {
     async function fetchUsers() {
       try {
+        console.log("selectedType", selectedType);
+
         const { data } = await instanceBacEnd.get(
           `/users?page=${page}&limit=${pageSize}`
         );
+        let filteredData = data;
+        if (selectedType === "followings") {
+          filteredData = data.filter((user) => followings.includes(user.id));
+        } else if (selectedType === "follow") {
+          filteredData = data.filter((user) => !followings.includes(user.id));
+        }
+        // if (selectedType === "follow") {
+        //   filteredData = data.filter((user) => followings.includes(user.id));
+        // }
         if (page === 1) {
-          setTweets(data);
+          setTweets(filteredData);
         } else {
-          setTweets((prev) => [...prev, ...data]);
+          setTweets((prev) => [...prev, ...filteredData]);
         }
 
         //We can define the last page this way, but that's a lot of queries
@@ -50,7 +61,7 @@ export default function TweetsPage() {
       }
     }
     fetchUsers();
-  }, [page, pageSize, isLastPage]);
+  }, [page, pageSize, isLastPage, selectedType, followings]);
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -60,7 +71,6 @@ export default function TweetsPage() {
   const addFollowingsCurrentUser = (id) => {
     async function updateFollowings() {
       try {
-        console.log("in add");
         const updatedFollowings = [...followings, id];
         await instanceBacEnd.put(`/currentUser/3`, {
           followings: updatedFollowings,
@@ -76,7 +86,6 @@ export default function TweetsPage() {
   const removeFollowingsCurrentUser = (id) => {
     async function updateFollowings() {
       try {
-        console.log("in remove");
         const updatedFollowings = followings.filter(
           (followingId) => followingId !== id
         );
@@ -84,16 +93,19 @@ export default function TweetsPage() {
           followings: updatedFollowings,
         }); //{ followings: updatedFollowings }
         setFollowings(updatedFollowings);
-        console.log("updatedFollowings", updatedFollowings);
       } catch (error) {
         console.log(error.message);
       }
     }
     updateFollowings();
   };
+  function handleSearchTypeChange(type) {
+    console.log("in TP", type);
+    setSelectedType(type);
+  }
   return (
     <PageWrapper>
-      <FilterSelector />
+      <FilterSelector onTypeChange={handleSearchTypeChange} />
       <TweetsList
         tweets={tweets}
         addFollowingsCurrentUser={addFollowingsCurrentUser}
@@ -108,3 +120,10 @@ export default function TweetsPage() {
     </PageWrapper>
   );
 }
+// if (selectedType === "show-all") {
+//   // const { data } = await instanceBacEnd.get(
+//   //   `/users?page=${page}&limit=${pageSize}`
+//   // );
+// }
+// if (selectedType === "followings") {
+// }

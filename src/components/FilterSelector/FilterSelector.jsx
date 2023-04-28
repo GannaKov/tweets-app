@@ -6,19 +6,22 @@ const options = [
   { value: "followings", label: "Followings" },
 ];
 
-export default function FilterSelector() {
-  const [selectedOption, setSelectedOption] = useState(null);
+export default function FilterSelector({ onTypeChange }) {
+  const [selectedOption, setSelectedOption] = useState("show-all");
 
-  const handleChange = (selectedOption) => {
-    setSelectedOption(selectedOption);
-    console.log(`Option selected:`, selectedOption);
+  const handleChange = (newSelectedOption) => {
+    if (newSelectedOption.value !== selectedOption) {
+      setSelectedOption(newSelectedOption.value);
+      console.log(`Option selected:`, newSelectedOption.value);
+      onTypeChange(newSelectedOption.value);
+    }
   };
 
   return (
     <CustomSelect
       className="react-select-container"
       classNamePrefix="react-select"
-      value={selectedOption}
+      value={options.find((option) => option.value === selectedOption)}
       onChange={handleChange}
       options={options}
     />

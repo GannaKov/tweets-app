@@ -8,8 +8,11 @@ import {
   Button,
   ButtonText,
 } from "./TweetCard.styled";
+
+const { REACT_APP_BASE_URL } = process.env;
+
 export const instanceBacEnd = axios.create({
-  baseURL: "https://6449944db88a78a8f00b5309.mockapi.io",
+  baseURL: REACT_APP_BASE_URL,
 });
 
 //----------------------
@@ -19,43 +22,26 @@ export default function TweetCard({
   followings,
   removeFollowingsCurrentUser,
 }) {
-  //   const [isFollowing, setIsFollowing] = useState(
-  //     JSON.parse(localStorage.getItem(`isFollowing_${tweet.id}`)) || false
-  //   );
   const [isFollowing, setIsFollowing] = useState(false);
   const [currentTweet, setTweet] = useState(tweet);
 
   useEffect(() => {
-    if (followings.includes(tweet.id)) {
-      setIsFollowing(true);
-    }
+    // if (followings.includes(tweet.id)) {
+    //   setIsFollowing(true);
+    // }
+    setIsFollowing(followings.includes(tweet.id));
   }, [followings, tweet.id]);
-
-  //   useEffect(() => {
-  //     localStorage.setItem(
-  //       `isFollowing_${tweet.id}`,
-  //       JSON.stringify(isFollowing)
-  //     );
-  //   }, [isFollowing, tweet.id]);
-
-  //   useEffect(() => {hz ???
-  //     setIsFollowing(JSON.parse(localStorage.getItem("isFollowing")) || false);
-  //   }, []);
 
   const handleClick = (evt) => {
     evt.preventDefault();
-
-    console.log("isFollowing", isFollowing);
     const updatedFollowers = isFollowing
       ? currentTweet.followers - 1
       : currentTweet.followers + 1;
 
     if (!isFollowing) {
       addFollowingsCurrentUser(tweet.id);
-      //   setIsFollowing(!isFollowing);
     } else {
       removeFollowingsCurrentUser(tweet.id);
-      //   setIsFollowing(!isFollowing);
     }
     async function updateUser() {
       try {
