@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const TweetWrapper = styled.div`
+export const TweetWrapper = styled.li`
   display: flex;
   flex-direction: column;
   width: 380px;

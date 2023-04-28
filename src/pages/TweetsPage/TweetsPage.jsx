@@ -41,7 +41,7 @@ export default function TweetsPage() {
 
   const handleClick = (evt) => {
     evt.preventDefault();
-    setPage(page + 1);
+    setPage((state) => state + 1);
   };
   return (
     <PageWrapper>

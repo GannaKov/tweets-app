@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const TweetsListWrapper = styled.div`
+export const TweetsListWrapper = styled.ul`
   justify-items: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

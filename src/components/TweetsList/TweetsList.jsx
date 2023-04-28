@@ -1,5 +1,5 @@
 import React from "react";
-import { TweetsListWrapper } from "./TweetsLisr.styled";
+import { TweetsListWrapper } from "./TweetsList.styled";
 import TweetCard from "../../components/TweetCard";
 export default function TweetsList({ tweets }) {
   return (
