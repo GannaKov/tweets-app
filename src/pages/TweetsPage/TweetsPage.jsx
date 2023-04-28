@@ -19,8 +19,12 @@ export default function TweetsPage() {
         const { data } = await instanceBacEnd.get(
           `/users?page=${page}&limit=${pageSize}`
         );
+        if (page === 1) {
+          setTweets(data);
+        } else {
+          setTweets((prev) => [...prev, ...data]);
+        }
 
-        setTweets(data);
         //We can define the last page this way, but that's a lot of queries
         // const { dataNext } = await instanceBacEnd.get(
         //   `/users?page=${page + 1}&limit=${pageSize}`
@@ -34,6 +38,7 @@ export default function TweetsPage() {
     }
     fetchUsers();
   }, [page, pageSize, isLastPage]);
+
   const handleClick = (evt) => {
     evt.preventDefault();
     setPage(page + 1);

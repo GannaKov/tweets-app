@@ -15,14 +15,12 @@ export default function FilterSelector() {
   };
 
   return (
-    <div>
-      <CustomSelect
-        className="react-select-container"
-        classNamePrefix="react-select"
-        value={selectedOption}
-        onChange={handleChange}
-        options={options}
-      />
-    </div>
+    <CustomSelect
+      className="react-select-container"
+      classNamePrefix="react-select"
+      value={selectedOption}
+      onChange={handleChange}
+      options={options}
+    />
   );
 }

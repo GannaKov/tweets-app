@@ -9,6 +9,21 @@ export const CustomSelect = styled(ReactSelect)`
   .react-select__control {
     height: 34px;
     width: 246px;
+    border: 3px solid rgba(71, 28, 169, 0.5);
+    outline: 0;
+    box-shadow: none;
+    &:active,
+    &:hover,
+    &:focus {
+      outline: 0;
+      border-color: rgba(71, 28, 169, 0.8);
+      box-shadow: none;
+    }
+    .css-t3ipsp-control {
+      outline: 0;
+      border: 0;
+      box-shadow: none;
+    }
   }
   /* .react-select__dropdown-indicator {
     color: #8baa36;
