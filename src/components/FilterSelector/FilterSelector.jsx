@@ -12,7 +12,7 @@ export default function FilterSelector({ onTypeChange }) {
   const handleChange = (newSelectedOption) => {
     if (newSelectedOption.value !== selectedOption) {
       setSelectedOption(newSelectedOption.value);
-      console.log(`Option selected:`, newSelectedOption.value);
+
       onTypeChange(newSelectedOption.value);
     }
   };

@@ -20,29 +20,24 @@ export default function TweetsPage() {
     async function fetchCurrentUsers() {
       try {
         const result = await instanceBacEnd.get(`/currentUser/3`);
-        setFollowings(result.data.followings);
-      } catch {}
+        const arr = result.data.followings.sort((a, b) => a - b);
+
+        setFollowings(arr);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
     fetchCurrentUsers();
   }, []);
-  //----
+  //----------------1
   useEffect(() => {
     async function fetchUsers() {
       try {
-        console.log("selectedType", selectedType);
-
         const { data } = await instanceBacEnd.get(
           `/users?page=${page}&limit=${pageSize}`
         );
         let filteredData = data;
-        if (selectedType === "followings") {
-          filteredData = data.filter((user) => followings.includes(user.id));
-        } else if (selectedType === "follow") {
-          filteredData = data.filter((user) => !followings.includes(user.id));
-        }
-        // if (selectedType === "follow") {
-        //   filteredData = data.filter((user) => followings.includes(user.id));
-        // }
+
         if (page === 1) {
           setTweets(filteredData);
         } else {
@@ -61,6 +56,42 @@ export default function TweetsPage() {
       }
     }
     fetchUsers();
+  }, [page, pageSize, isLastPage]);
+  //-----------------------2
+  useEffect(() => {
+    if (selectedType !== "show-all") {
+      async function fetchUsers() {
+        try {
+          console.log("page", page);
+          console.log("tweets", tweets);
+
+          console.log("followings", followings, followings.length);
+
+          const { data } = await instanceBacEnd.get(
+            `/users?page=${page}&limit=${pageSize}`
+          );
+          let filteredData = data;
+          if (selectedType === "followings") {
+            console.log("followings", followings, followings.length);
+            filteredData = data.filter((user) => followings.includes(user.id));
+          } else if (selectedType === "follow") {
+            filteredData = data.filter((user) => !followings.includes(user.id));
+          }
+
+          if (page === 1) {
+            setTweets(filteredData);
+          } else {
+            setTweets((prev) => [...prev, ...filteredData]);
+          }
+          const isFinish = data.length < pageSize;
+
+          setIsLastPage(isFinish);
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      fetchUsers();
+    }
   }, [page, pageSize, isLastPage, selectedType, followings]);
 
   const handleClick = (evt) => {
@@ -100,7 +131,9 @@ export default function TweetsPage() {
     updateFollowings();
   };
   function handleSearchTypeChange(type) {
-    console.log("in TP", type);
+    setTweets([]);
+    setPage(1);
+
     setSelectedType(type);
   }
   return (
