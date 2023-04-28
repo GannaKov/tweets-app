@@ -10,9 +10,22 @@ export const instanceBacEnd = axios.create({
 
 export default function TweetsPage() {
   const [tweets, setTweets] = useState([]);
+  const [followings, setFollowings] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(3); //setPageSize
   const [isLastPage, setIsLastPage] = useState(false);
+  //-----
+  useEffect(() => {
+    async function fetchCurrentUsers() {
+      try {
+        const result = await instanceBacEnd.get(`/currentUser/3`);
+        setFollowings(result.data.followings);
+        console.log("current", result.data.followings);
+      } catch {}
+    }
+    fetchCurrentUsers();
+  }, []);
+  //----
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -30,7 +43,7 @@ export default function TweetsPage() {
         //   `/users?page=${page + 1}&limit=${pageSize}`
         // );
         const isFinish = data.length < pageSize;
-        console.log(isLastPage);
+
         setIsLastPage(isFinish);
       } catch (error) {
         console.log(error.message);
@@ -43,10 +56,50 @@ export default function TweetsPage() {
     evt.preventDefault();
     setPage((state) => state + 1);
   };
+
+  const addFollowingsCurrentUser = (id) => {
+    async function updateFollowings() {
+      try {
+        console.log("in add");
+        const updatedFollowings = [...followings, id];
+        await instanceBacEnd.put(`/currentUser/3`, {
+          followings: updatedFollowings,
+        }); //{ followings: updatedFollowings }
+        setFollowings(updatedFollowings);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    updateFollowings();
+  };
+
+  const removeFollowingsCurrentUser = (id) => {
+    async function updateFollowings() {
+      try {
+        console.log("in remove");
+        const updatedFollowings = followings.filter(
+          (followingId) => followingId !== id
+        );
+        await instanceBacEnd.put(`/currentUser/3`, {
+          followings: updatedFollowings,
+        }); //{ followings: updatedFollowings }
+        setFollowings(updatedFollowings);
+        console.log("updatedFollowings", updatedFollowings);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    updateFollowings();
+  };
   return (
     <PageWrapper>
       <FilterSelector />
-      <TweetsList tweets={tweets} />
+      <TweetsList
+        tweets={tweets}
+        addFollowingsCurrentUser={addFollowingsCurrentUser}
+        removeFollowingsCurrentUser={removeFollowingsCurrentUser}
+        followings={followings}
+      />
       {!isLastPage && (
         <Button onClick={handleClick}>
           <ButtonText>Load More</ButtonText>

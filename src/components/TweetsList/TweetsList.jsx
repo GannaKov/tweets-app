@@ -1,13 +1,26 @@
 import React from "react";
 import { TweetsListWrapper } from "./TweetsList.styled";
+
 import TweetCard from "../../components/TweetCard";
-export default function TweetsList({ tweets }) {
+
+export default function TweetsList({
+  tweets,
+  addFollowingsCurrentUser,
+  followings,
+  removeFollowingsCurrentUser,
+}) {
   return (
     <>
       {tweets.length ? (
         <TweetsListWrapper>
           {tweets.map((tweet) => (
-            <TweetCard key={tweet.id} tweet={tweet} />
+            <TweetCard
+              key={tweet.id}
+              tweet={tweet}
+              addFollowingsCurrentUser={addFollowingsCurrentUser}
+              removeFollowingsCurrentUser={removeFollowingsCurrentUser}
+              followings={followings}
+            />
           ))}
         </TweetsListWrapper>
       ) : (

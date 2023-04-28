@@ -11,32 +11,54 @@ import {
 export const instanceBacEnd = axios.create({
   baseURL: "https://6449944db88a78a8f00b5309.mockapi.io",
 });
-export default function TweetCard({ tweet }) {
-  const [isFollowing, setIsFollowing] = useState(
-    JSON.parse(localStorage.getItem(`isFollowing_${tweet.id}`)) || false
-  );
+
+//----------------------
+export default function TweetCard({
+  tweet,
+  addFollowingsCurrentUser,
+  followings,
+  removeFollowingsCurrentUser,
+}) {
+  //   const [isFollowing, setIsFollowing] = useState(
+  //     JSON.parse(localStorage.getItem(`isFollowing_${tweet.id}`)) || false
+  //   );
+  const [isFollowing, setIsFollowing] = useState(false);
   const [currentTweet, setTweet] = useState(tweet);
 
   useEffect(() => {
-    localStorage.setItem(
-      `isFollowing_${tweet.id}`,
-      JSON.stringify(isFollowing)
-    );
-  }, [isFollowing, tweet.id]);
+    if (followings.includes(tweet.id)) {
+      setIsFollowing(true);
+    }
+  }, [followings, tweet.id]);
 
   //   useEffect(() => {
+  //     localStorage.setItem(
+  //       `isFollowing_${tweet.id}`,
+  //       JSON.stringify(isFollowing)
+  //     );
+  //   }, [isFollowing, tweet.id]);
+
+  //   useEffect(() => {hz ???
   //     setIsFollowing(JSON.parse(localStorage.getItem("isFollowing")) || false);
   //   }, []);
 
   const handleClick = (evt) => {
     evt.preventDefault();
+
+    console.log("isFollowing", isFollowing);
     const updatedFollowers = isFollowing
       ? currentTweet.followers - 1
       : currentTweet.followers + 1;
 
+    if (!isFollowing) {
+      addFollowingsCurrentUser(tweet.id);
+      //   setIsFollowing(!isFollowing);
+    } else {
+      removeFollowingsCurrentUser(tweet.id);
+      //   setIsFollowing(!isFollowing);
+    }
     async function updateUser() {
       try {
-        console.log(updatedFollowers);
         setIsFollowing(!isFollowing);
         await instanceBacEnd.put(`/users/${tweet.id}`, {
           followers: updatedFollowers,
@@ -48,12 +70,14 @@ export default function TweetCard({ tweet }) {
     }
     updateUser();
   };
+
   return (
     <TweetWrapper>
       <AvatarWrapper>
         <img src={currentTweet.avatar} alt={tweet.name} />
       </AvatarWrapper>
       <TweetsQuantity>{currentTweet.tweets} tweets</TweetsQuantity>
+
       <FollowersQuantity>
         {currentTweet.followers.toLocaleString("en-US")} Followers
       </FollowersQuantity>
