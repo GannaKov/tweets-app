@@ -1,16 +1,23 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import TweetsPage from "./pages/TweetsPage/TweetsPage";
-
+import { SharedLayout } from "./components/SharedLayout/SharedLayout";
+// import Home from "./pages/Home/Home";
+// import TweetsPage from "./pages/TweetsPage/TweetsPage";
+import { Loader } from "./components/Loader";
+const Home = lazy(() => import("./pages/Home/Home"));
+const TweetsPage = lazy(() => import("./pages/TweetsPage/TweetsPage"));
 export default function App() {
   return (
-    <div>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/tweets" element={<TweetsPage />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </div>
+    <Suspense fallback={<Loader />}>
+      <div>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/tweets" element={<TweetsPage />} />
+            <Route path="*" element={<Home />} />
+          </Route>
+        </Routes>
+      </div>
+    </Suspense>
   );
 }
