@@ -22,8 +22,6 @@ export const AvatarWrapper = styled.div`
   border-radius: 100%;
   overflow: hidden;
   img {
-    /* width: 100%;
-    height: 100%; */
     object-fit: cover;
   }
 `;
@@ -52,7 +50,6 @@ export const Button = styled.button`
   padding: 14px auto;
   border-radius: 10.31px;
   border: transparent;
-  /* background-color: rgba(235, 216, 255, 1); */
 `;
 export const ButtonText = styled.p`
   color: rgba(55, 55, 55, 1);
