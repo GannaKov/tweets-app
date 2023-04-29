@@ -62,31 +62,8 @@ export default function TweetsPage() {
   useEffect(() => {
     if (selectedType !== "show-all") {
       setTweets(sortedData.slice(0, displayedCount));
-      // async function fetchUsers() {
-      //   try {
-      //     const { data } = await instanceBacEnd.get(`/users`);
-      //     console.log(data);
-      //     let filteredData = data;
-      //     if (selectedType === "followings") {
-      //       filteredData = data.filter((user) => followings.includes(user.id));
-      //     } else if (selectedType === "follow") {
-      //       filteredData = data.filter((user) => !followings.includes(user.id));
-      //     }
-      //     setTotalPages(Math.ceil(followings.length / pageSize));
-      //     setTweets(filteredData);
-      //     console.log(
-      //       "followings",
-      //       followings,
-      //       followings.length,
-      //       Math.ceil(followings.length / pageSize)
-      //     );
-      //   } catch (error) {
-      //     console.log(error.message);
-      //   }
-      // }
-      // fetchUsers();
     }
-  }, [page, pageSize, selectedType, followings, sortedData, displayedCount]);
+  }, [selectedType, sortedData, displayedCount]);
 
   const handleClick = (evt) => {
     evt.preventDefault();
