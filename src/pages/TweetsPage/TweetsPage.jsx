@@ -13,90 +13,87 @@ export default function TweetsPage() {
   const [followings, setFollowings] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(3); //setPageSize
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [totalPagesAll, setTotalPagesAll] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
+  const [sortedData, setSortedData] = useState([]);
   const [selectedType, setSelectedType] = useState("show-all");
+  const [displayedCount, setDisplayedCount] = useState(3);
   //-----
   useEffect(() => {
     async function fetchCurrentUsers() {
       try {
-        const result = await instanceBacEnd.get(`/currentUser/3`);
-        const arr = result.data.followings.sort((a, b) => a - b);
+        const { data } = await instanceBacEnd.get(`/currentUser/3`);
 
+        const arr = data.followings.sort((a, b) => a - b);
+        // setTotalItems(data.totalItems);
         setFollowings(arr);
+        setTotalPages(Math.ceil(data.totalItems / pageSize));
+        setTotalPagesAll(Math.ceil(data.totalItems / pageSize));
       } catch (error) {
         console.log(error.message);
       }
     }
     fetchCurrentUsers();
-  }, []);
+  }, [pageSize]);
   //----------------1
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const { data } = await instanceBacEnd.get(
-          `/users?page=${page}&limit=${pageSize}`
-        );
-        let filteredData = data;
-
-        if (page === 1) {
-          setTweets(filteredData);
-        } else {
-          setTweets((prev) => [...prev, ...filteredData]);
-        }
-
-        //We can define the last page this way, but that's a lot of queries
-        // const { dataNext } = await instanceBacEnd.get(
-        //   `/users?page=${page + 1}&limit=${pageSize}`
-        // );
-        const isFinish = data.length < pageSize;
-
-        setIsLastPage(isFinish);
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    fetchUsers();
-  }, [page, pageSize, isLastPage]);
-  //-----------------------2
-  useEffect(() => {
-    if (selectedType !== "show-all") {
+    if (selectedType === "show-all") {
+      console.log("in UEf1");
       async function fetchUsers() {
         try {
-          console.log("page", page);
-          console.log("tweets", tweets);
-
-          console.log("followings", followings, followings.length);
-
           const { data } = await instanceBacEnd.get(
             `/users?page=${page}&limit=${pageSize}`
           );
           let filteredData = data;
-          if (selectedType === "followings") {
-            console.log("followings", followings, followings.length);
-            filteredData = data.filter((user) => followings.includes(user.id));
-          } else if (selectedType === "follow") {
-            filteredData = data.filter((user) => !followings.includes(user.id));
-          }
 
           if (page === 1) {
             setTweets(filteredData);
           } else {
             setTweets((prev) => [...prev, ...filteredData]);
           }
-          const isFinish = data.length < pageSize;
-
-          setIsLastPage(isFinish);
         } catch (error) {
           console.log(error.message);
         }
       }
       fetchUsers();
     }
-  }, [page, pageSize, isLastPage, selectedType, followings]);
+  }, [page, pageSize, selectedType]);
+  //-----------------------2
+  useEffect(() => {
+    if (selectedType !== "show-all") {
+      setTweets(sortedData.slice(0, displayedCount));
+      // async function fetchUsers() {
+      //   try {
+      //     const { data } = await instanceBacEnd.get(`/users`);
+      //     console.log(data);
+      //     let filteredData = data;
+      //     if (selectedType === "followings") {
+      //       filteredData = data.filter((user) => followings.includes(user.id));
+      //     } else if (selectedType === "follow") {
+      //       filteredData = data.filter((user) => !followings.includes(user.id));
+      //     }
+      //     setTotalPages(Math.ceil(followings.length / pageSize));
+      //     setTweets(filteredData);
+      //     console.log(
+      //       "followings",
+      //       followings,
+      //       followings.length,
+      //       Math.ceil(followings.length / pageSize)
+      //     );
+      //   } catch (error) {
+      //     console.log(error.message);
+      //   }
+      // }
+      // fetchUsers();
+    }
+  }, [page, pageSize, selectedType, followings, sortedData, displayedCount]);
 
   const handleClick = (evt) => {
     evt.preventDefault();
     setPage((state) => state + 1);
+    if (selectedType !== "show-all") {
+      setDisplayedCount((prevCount) => prevCount + 3);
+    }
   };
 
   const addFollowingsCurrentUser = (id) => {
@@ -133,9 +130,42 @@ export default function TweetsPage() {
   function handleSearchTypeChange(type) {
     setTweets([]);
     setPage(1);
-
+    setTotalPages(1);
     setSelectedType(type);
+    setDisplayedCount(3);
+    if (type === "show-all") {
+      setTotalPages(totalPagesAll);
+    }
+    if (type !== "show-all") {
+      async function fetchUsers() {
+        try {
+          const { data } = await instanceBacEnd.get(`/users`);
+
+          let filteredData = data;
+
+          if (type === "followings") {
+            filteredData = data.filter((user) => followings.includes(user.id));
+            // setTotalPages(Math.ceil(followings.length / pageSize));
+          } else if (type === "follow") {
+            filteredData = data.filter((user) => !followings.includes(user.id));
+          }
+          setTotalPages(Math.ceil(filteredData.length / pageSize));
+          setSortedData(filteredData);
+          console.log(
+            "sorted",
+
+            filteredData.length,
+            Math.ceil(filteredData.length / pageSize)
+          );
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      fetchUsers();
+    }
   }
+  // const displayedUsers = tweets.slice(0, displayedCount);
+
   return (
     <PageWrapper>
       <FilterSelector onTypeChange={handleSearchTypeChange} />
@@ -145,7 +175,7 @@ export default function TweetsPage() {
         removeFollowingsCurrentUser={removeFollowingsCurrentUser}
         followings={followings}
       />
-      {!isLastPage && (
+      {page < totalPages && (
         <Button onClick={handleClick}>
           <ButtonText>Load More</ButtonText>
         </Button>
@@ -153,7 +183,7 @@ export default function TweetsPage() {
     </PageWrapper>
   );
 }
-// if (selectedType === "show-all") {
+// if (selectedType === "show-all") {displayedCount < tweets.length
 //   // const { data } = await instanceBacEnd.get(
 //   //   `/users?page=${page}&limit=${pageSize}`
 //   // );

@@ -7,7 +7,7 @@ export const CustomSelect = styled(ReactSelect)`
   border-color: rgba(250, 250, 250, 0.2);
   border-radius: 6px;
   .react-select__control {
-    height: 34px;
+    height: 38px;
     width: 246px;
     border: 3px solid rgba(71, 28, 169, 0.5);
     outline: 0;
