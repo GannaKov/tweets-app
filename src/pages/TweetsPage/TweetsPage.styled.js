@@ -5,8 +5,18 @@ export const PageWrapper = styled.div`
   /*gap: 32px; */
   padding: 32px;
 `;
+export const GoBack = styled.button`
+  width: 98px;
+  height: 50px;
+  padding: 14px auto;
+  border-radius: 10.31px;
+  border: 2px solid rgba(71, 28, 169, 0.8);
+  background-color: white;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 14px;
+`;
 export const Button = styled.button`
-  margin: 0 auto;
   width: 196px;
   height: 50px;
   padding: 14px auto;

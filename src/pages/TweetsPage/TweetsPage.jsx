@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import TweetsList from "../../components/TweetsList";
 import FilterSelector from "../../components/FilterSelector";
 import axios from "axios";
-import { PageWrapper, Button, ButtonText } from "./TweetsPage.styled";
-
+import { PageWrapper, Button, ButtonText, GoBack } from "./TweetsPage.styled";
+import { useNavigate } from "react-router-dom";
 export const instanceBacEnd = axios.create({
   baseURL: "https://6449944db88a78a8f00b5309.mockapi.io",
 });
 
 export default function TweetsPage() {
+  const navigate = useNavigate();
   const [tweets, setTweets] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [page, setPage] = useState(1);
@@ -25,7 +26,7 @@ export default function TweetsPage() {
         const { data } = await instanceBacEnd.get(`/currentUser/3`);
 
         const arr = data.followings.sort((a, b) => a - b);
-        // setTotalItems(data.totalItems);
+
         setFollowings(arr);
         setTotalPages(Math.ceil(data.totalItems / pageSize));
         setTotalPagesAll(Math.ceil(data.totalItems / pageSize));
@@ -38,7 +39,6 @@ export default function TweetsPage() {
   //----------------1
   useEffect(() => {
     if (selectedType === "show-all") {
-      console.log("in UEf1");
       async function fetchUsers() {
         try {
           const { data } = await instanceBacEnd.get(
@@ -79,7 +79,7 @@ export default function TweetsPage() {
         const updatedFollowings = [...followings, id];
         await instanceBacEnd.put(`/currentUser/3`, {
           followings: updatedFollowings,
-        }); //{ followings: updatedFollowings }
+        });
         setFollowings(updatedFollowings);
       } catch (error) {
         console.log(error.message);
@@ -96,7 +96,7 @@ export default function TweetsPage() {
         );
         await instanceBacEnd.put(`/currentUser/3`, {
           followings: updatedFollowings,
-        }); //{ followings: updatedFollowings }
+        });
         setFollowings(updatedFollowings);
       } catch (error) {
         console.log(error.message);
@@ -122,18 +122,11 @@ export default function TweetsPage() {
 
           if (type === "followings") {
             filteredData = data.filter((user) => followings.includes(user.id));
-            // setTotalPages(Math.ceil(followings.length / pageSize));
           } else if (type === "follow") {
             filteredData = data.filter((user) => !followings.includes(user.id));
           }
           setTotalPages(Math.ceil(filteredData.length / pageSize));
           setSortedData(filteredData);
-          console.log(
-            "sorted",
-
-            filteredData.length,
-            Math.ceil(filteredData.length / pageSize)
-          );
         } catch (error) {
           console.log(error.message);
         }
@@ -141,10 +134,12 @@ export default function TweetsPage() {
       fetchUsers();
     }
   }
-  // const displayedUsers = tweets.slice(0, displayedCount);
-
+  function handleGoBack() {
+    navigate("/home");
+  }
   return (
     <PageWrapper>
+      <GoBack onClick={handleGoBack}> &lt;-- Go Back</GoBack>
       <FilterSelector onTypeChange={handleSearchTypeChange} />
       <TweetsList
         tweets={tweets}
@@ -160,10 +155,3 @@ export default function TweetsPage() {
     </PageWrapper>
   );
 }
-// if (selectedType === "show-all") {displayedCount < tweets.length
-//   // const { data } = await instanceBacEnd.get(
-//   //   `/users?page=${page}&limit=${pageSize}`
-//   // );
-// }
-// if (selectedType === "followings") {
-// }
