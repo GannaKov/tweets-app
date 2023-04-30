@@ -5,7 +5,6 @@ import { Loader } from "../Loader";
 
 export const SharedLayout = () => {
   return (
-    // <Container>
     <>
       <Header>
         <nav>
@@ -21,7 +20,5 @@ export const SharedLayout = () => {
         </Suspense>
       </main>
     </>
-
-    // </Container>
   );
 };

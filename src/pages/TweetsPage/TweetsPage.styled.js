@@ -2,7 +2,6 @@ import styled from "styled-components";
 export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /*gap: 32px; */
   padding: 16px 32px 32px;
 `;
 export const GoBack = styled.button`
@@ -29,7 +28,7 @@ export const Button = styled.button`
   padding: 14px auto;
   border-radius: 10.31px;
   border: transparent;
-  background-color: rgba(71, 28, 195, 1); //rgba(75, 42, 153, 1);
+  background-color: rgba(71, 28, 195, 1); 
   margin: 0 auto;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {

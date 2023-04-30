@@ -26,13 +26,10 @@ export const CustomSelect = styled(ReactSelect)`
       box-shadow: none;
     }
   }
-  /* .react-select__dropdown-indicator {
-    color: #8baa36;
-  } */
+
   .react-select__menu {
     margin-top: 0px;
     width: 246px;
-    /* margin-bottom: 0px; */
   }
   .react-select__option {
     cursor: pointer;

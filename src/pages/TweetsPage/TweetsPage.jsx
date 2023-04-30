@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TweetsList from "../../components/TweetsList";
 import FilterSelector from "../../components/FilterSelector";
-
 import { PageWrapper, Button, ButtonText, GoBack } from "./TweetsPage.styled";
 import { useNavigate } from "react-router-dom";
 import { queryBackEnd } from "../../helpers/request";
@@ -11,7 +10,7 @@ export default function TweetsPage() {
   const [tweets, setTweets] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(3); //setPageSize
+  const [pageSize] = useState(3); 
   const [totalPagesAll, setTotalPagesAll] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
   const [sortedData, setSortedData] = useState([]);
@@ -23,7 +22,6 @@ export default function TweetsPage() {
     response
       .then((result) => {
         const arr = result.followings.sort((a, b) => a - b);
-
         setFollowings(arr);
         setTotalPages(Math.ceil(result.totalItems / pageSize));
         setTotalPagesAll(Math.ceil(result.totalItems / pageSize));
@@ -39,7 +37,6 @@ export default function TweetsPage() {
       response
         .then((data) => {
           let filteredData = data;
-
           if (page === 1) {
             setTweets(filteredData);
           } else {
