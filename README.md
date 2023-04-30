@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Tweets App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Created as a Test task for GoIT Preparation Course for Tech Interview
 
-## Available Scripts
+- [Website Layout (Figma)] Website Layout (https://www.figma.com/file/zun1oP6NmS2Lmgbcj6e1IG/Test?node-id=7-89&t=gbK7eMVCtuvJng9E-0)
+- [Tech Requirements] (https://drive.google.com/file/d/1XQnUiuhy6zndS8wN9ZonHZV6Iu0esiA1/view)
 
-In the project directory, you can run:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Backend created via [mockapi.io](https://mockapi.io/projects).
 
-### `npm start`
+## About this project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is a simple Social App that allows:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- browsing cards of users
+- adding users to the list of followed
+- filtering cards (all / not followed / followed)
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [React](https://reactjs.org/)
+- [Styled Components](https://styled-components.com/)
 
-### `npm run build`
+## Installing and launching the app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Make sure you have an LTS version of Node.js installed on your computer.
+   [Download and install](https://nodejs.org/en/) if needed.
+2. Install the project's base dependencies with the `npm install` command.
+3. Start development mode by running the `npm start` command.
+4. Go to [http://localhost:3000](http://localhost:3000) in your browser. This
+   page will automatically reload after saving changes to the project files.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deploy
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The production version of the project will automatically be linted, built, and
+deployed to GitHub Pages, in the `gh-pages` branch, every time the `master` branch
+is updated. For example, after a direct push or an accepted pull request.
 
-### `npm run eject`
+### Deployment status
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The deployment status of the latest commit is displayed with an icon next to its
+ID.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Yellow color** - the project is being built and deployed.
+- **Green color** - deployment completed successfully.
+- **Red color** - an error occurred during linting, build or deployment.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+More detailed information about the status can be viewed by clicking on the
+icon, and in the drop-down window, follow the link `Details`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Live page
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Live page can be accessed at](https://gannakov.github.io/tweets-app/)
