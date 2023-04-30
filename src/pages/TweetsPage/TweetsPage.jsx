@@ -4,6 +4,8 @@ import FilterSelector from "../../components/FilterSelector";
 import axios from "axios";
 import { PageWrapper, Button, ButtonText, GoBack } from "./TweetsPage.styled";
 import { useNavigate } from "react-router-dom";
+import { queryBackEnd } from "../../helpers/request";
+
 export const instanceBacEnd = axios.create({
   baseURL: "https://6449944db88a78a8f00b5309.mockapi.io",
 });
@@ -21,29 +23,25 @@ export default function TweetsPage() {
   const [displayedCount, setDisplayedCount] = useState(3);
   //-----
   useEffect(() => {
-    async function fetchCurrentUsers() {
-      try {
-        const { data } = await instanceBacEnd.get(`/currentUser/3`);
-
-        const arr = data.followings.sort((a, b) => a - b);
+    const response = queryBackEnd.fetchCurrentUsers();
+    response
+      .then((result) => {
+        const arr = result.followings.sort((a, b) => a - b);
 
         setFollowings(arr);
-        setTotalPages(Math.ceil(data.totalItems / pageSize));
-        setTotalPagesAll(Math.ceil(data.totalItems / pageSize));
-      } catch (error) {
+        setTotalPages(Math.ceil(result.totalItems / pageSize));
+        setTotalPagesAll(Math.ceil(result.totalItems / pageSize));
+      })
+      .catch(function (error) {
         console.log(error.message);
-      }
-    }
-    fetchCurrentUsers();
+      });
   }, [pageSize]);
   //----------------1
   useEffect(() => {
     if (selectedType === "show-all") {
-      async function fetchUsers() {
-        try {
-          const { data } = await instanceBacEnd.get(
-            `/users?page=${page}&limit=${pageSize}`
-          );
+      const response = queryBackEnd.fetchUsers(page, pageSize);
+      response
+        .then((data) => {
           let filteredData = data;
 
           if (page === 1) {
@@ -51,11 +49,10 @@ export default function TweetsPage() {
           } else {
             setTweets((prev) => [...prev, ...filteredData]);
           }
-        } catch (error) {
+        })
+        .catch(function (error) {
           console.log(error.message);
-        }
-      }
-      fetchUsers();
+        });
     }
   }, [page, pageSize, selectedType]);
   //-----------------------2
@@ -74,36 +71,31 @@ export default function TweetsPage() {
   };
 
   const addFollowingsCurrentUser = (id) => {
-    async function updateFollowings() {
-      try {
-        const updatedFollowings = [...followings, id];
-        await instanceBacEnd.put(`/currentUser/3`, {
-          followings: updatedFollowings,
-        });
+    const updatedFollowings = [...followings, id];
+    const response = queryBackEnd.updateFollowings(updatedFollowings);
+    response
+      .then(() => {
         setFollowings(updatedFollowings);
-      } catch (error) {
+      })
+      .catch(function (error) {
         console.log(error.message);
-      }
-    }
-    updateFollowings();
+      });
   };
 
   const removeFollowingsCurrentUser = (id) => {
-    async function updateFollowings() {
-      try {
-        const updatedFollowings = followings.filter(
-          (followingId) => followingId !== id
-        );
-        await instanceBacEnd.put(`/currentUser/3`, {
-          followings: updatedFollowings,
-        });
+    const updatedFollowings = followings.filter(
+      (followingId) => followingId !== id
+    );
+    const response = queryBackEnd.updateFollowings(updatedFollowings);
+    response
+      .then(() => {
         setFollowings(updatedFollowings);
-      } catch (error) {
+      })
+      .catch(function (error) {
         console.log(error.message);
-      }
-    }
-    updateFollowings();
+      });
   };
+
   function handleSearchTypeChange(type) {
     setTweets([]);
     setPage(1);
@@ -114,10 +106,9 @@ export default function TweetsPage() {
       setTotalPages(totalPagesAll);
     }
     if (type !== "show-all") {
-      async function fetchUsers() {
-        try {
-          const { data } = await instanceBacEnd.get(`/users`);
-
+      const response = queryBackEnd.fetchAllUsers();
+      response
+        .then((data) => {
           let filteredData = data;
 
           if (type === "followings") {
@@ -127,11 +118,10 @@ export default function TweetsPage() {
           }
           setTotalPages(Math.ceil(filteredData.length / pageSize));
           setSortedData(filteredData);
-        } catch (error) {
+        })
+        .catch(function (error) {
           console.log(error.message);
-        }
-      }
-      fetchUsers();
+        });
     }
   }
   function handleGoBack() {
