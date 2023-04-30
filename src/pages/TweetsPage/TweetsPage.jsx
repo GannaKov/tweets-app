@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import TweetsList from "../../components/TweetsList";
 import FilterSelector from "../../components/FilterSelector";
-import axios from "axios";
+
 import { PageWrapper, Button, ButtonText, GoBack } from "./TweetsPage.styled";
 import { useNavigate } from "react-router-dom";
 import { queryBackEnd } from "../../helpers/request";
-
-export const instanceBacEnd = axios.create({
-  baseURL: "https://6449944db88a78a8f00b5309.mockapi.io",
-});
 
 export default function TweetsPage() {
   const navigate = useNavigate();

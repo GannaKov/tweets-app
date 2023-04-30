@@ -22,7 +22,16 @@ const updateFollowings = async (updatedFollowings) => {
     return err.response.data.message;
   }
 };
-
+// upd followers of user
+const updateUser = async (id, updatedFollowers) => {
+  try {
+    await instanceBacEnd.put(`/users/${id}`, {
+      followings: updatedFollowers,
+    });
+  } catch (err) {
+    return err.response.data.message;
+  }
+};
 // fetch all tweets with pagination
 const fetchUsers = async (page, pageSize) => {
   try {
@@ -48,6 +57,7 @@ const queryBackEnd = {
   fetchUsers,
   updateFollowings,
   fetchAllUsers,
+  updateUser,
 };
 
 export default queryBackEnd;

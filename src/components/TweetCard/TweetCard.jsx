@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import {
   TweetWrapper,
   AvatarWrapper,
@@ -8,12 +8,12 @@ import {
   Button,
   ButtonText,
 } from "./TweetCard.styled";
+import { queryBackEnd } from "../../helpers/request";
+// const { REACT_APP_BASE_URL } = process.env;
 
-const { REACT_APP_BASE_URL } = process.env;
-
-export const instanceBacEnd = axios.create({
-  baseURL: REACT_APP_BASE_URL,
-});
+// export const instanceBacEnd = axios.create({
+//   baseURL: REACT_APP_BASE_URL,
+// });
 
 //----------------------
 export default function TweetCard({
@@ -26,9 +26,6 @@ export default function TweetCard({
   const [currentTweet, setTweet] = useState(tweet);
 
   useEffect(() => {
-    // if (followings.includes(tweet.id)) {
-    //   setIsFollowing(true);
-    // }
     setIsFollowing(followings.includes(tweet.id));
   }, [followings, tweet.id]);
 
@@ -43,18 +40,15 @@ export default function TweetCard({
     } else {
       removeFollowingsCurrentUser(tweet.id);
     }
-    async function updateUser() {
-      try {
-        setIsFollowing(!isFollowing);
-        await instanceBacEnd.put(`/users/${tweet.id}`, {
-          followers: updatedFollowers,
-        });
+    setIsFollowing(!isFollowing);
+    const response = queryBackEnd.updateUser(tweet.id, updatedFollowers);
+    response
+      .then(() => {
         setTweet({ ...currentTweet, followers: updatedFollowers });
-      } catch (error) {
+      })
+      .catch(function (error) {
         console.log(error.message);
-      }
-    }
-    updateUser();
+      });
   };
 
   return (
