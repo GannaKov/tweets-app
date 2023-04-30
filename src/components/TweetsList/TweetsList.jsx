@@ -11,7 +11,7 @@ export default function TweetsList({
 }) {
   return (
     <>
-      {tweets.length ? (
+      {tweets.length > 0 && (
         <TweetsListWrapper>
           {tweets.map((tweet) => (
             <TweetCard
@@ -23,8 +23,6 @@ export default function TweetsList({
             />
           ))}
         </TweetsListWrapper>
-      ) : (
-        <p>Nothing</p>
       )}
     </>
   );

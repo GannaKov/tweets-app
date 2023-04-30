@@ -3,13 +3,14 @@ export const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   /*gap: 32px; */
-  padding: 32px;
+  padding: 16px 32px 32px;
 `;
 export const GoBack = styled.button`
-  width: 98px;
-  height: 50px;
-  padding: 14px auto;
-  border-radius: 10.31px;
+  margin-left: 28px;
+  width: 106px;
+  height: 30px;
+  padding: 8px auto;
+  border-radius: 6px;
   border: 2px solid rgba(71, 28, 169, 0.8);
   background-color: white;
   font-family: Montserrat;
