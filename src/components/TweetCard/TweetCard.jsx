@@ -9,11 +9,6 @@ import {
   ButtonText,
 } from "./TweetCard.styled";
 import { queryBackEnd } from "../../helpers/request";
-// const { REACT_APP_BASE_URL } = process.env;
-
-// export const instanceBacEnd = axios.create({
-//   baseURL: REACT_APP_BASE_URL,
-// });
 
 //----------------------
 export default function TweetCard({

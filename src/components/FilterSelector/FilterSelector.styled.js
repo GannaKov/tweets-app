@@ -12,6 +12,7 @@ export const CustomSelect = styled(ReactSelect)`
     border: 3px solid rgba(71, 28, 169, 0.5);
     outline: 0;
     box-shadow: none;
+    transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
     &:active,
     &:hover,
     &:focus {
@@ -37,6 +38,8 @@ export const CustomSelect = styled(ReactSelect)`
     cursor: pointer;
     background-color: transparent;
     color: #22252a;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .react-select__option:focus,
   .react-select__option:hover {
