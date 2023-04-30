@@ -2,8 +2,8 @@
 
 Created as a Test task for GoIT Preparation Course for Tech Interview
 
-- [Website Layout (Figma)] Website Layout (https://www.figma.com/file/zun1oP6NmS2Lmgbcj6e1IG/Test?node-id=7-89&t=gbK7eMVCtuvJng9E-0)
-- [Tech Requirements] (https://drive.google.com/file/d/1XQnUiuhy6zndS8wN9ZonHZV6Iu0esiA1/view)
+- [Website Layout (Figma)](https://www.figma.com/file/zun1oP6NmS2Lmgbcj6e1IG/Test?node-id=7-89&t=gbK7eMVCtuvJng9E-0)
+- [Tech Requirements](https://drive.google.com/file/d/1XQnUiuhy6zndS8wN9ZonHZV6Iu0esiA1/view)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Backend created via [mockapi.io](https://mockapi.io/projects).
 
@@ -49,4 +49,4 @@ icon, and in the drop-down window, follow the link `Details`.
 
 ### Live page
 
-[Live page can be accessed at](https://gannakov.github.io/tweets-app/)
+Live page can be accessed at <https://gannakov.github.io/tweets-app/>.
