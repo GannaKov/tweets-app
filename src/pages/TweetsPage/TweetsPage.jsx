@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import TweetsList from "../../components/TweetsList";
 import FilterSelector from "../../components/FilterSelector";
-import { PageWrapper, Button, ButtonText, GoBack } from "./TweetsPage.styled";
-import { useNavigate } from "react-router-dom";
+import {
+  PageWrapper,
+  Button,
+  ButtonText,
+  GoBack,
+  Link,
+} from "./TweetsPage.styled";
+
 import { queryBackEnd } from "../../helpers/request";
+import { useLocation } from "react-router-dom";
 
 export default function TweetsPage() {
-  const navigate = useNavigate();
+  const location = useLocation();
+
   const [tweets, setTweets] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(3); 
+  const [pageSize] = useState(3);
   const [totalPagesAll, setTotalPagesAll] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
   const [sortedData, setSortedData] = useState([]);
@@ -117,12 +125,13 @@ export default function TweetsPage() {
         });
     }
   }
-  function handleGoBack() {
-    navigate("/home");
-  }
+
+  const goBack = location.state?.from ?? "/";
   return (
     <PageWrapper>
-      <GoBack onClick={handleGoBack}> &lt;-- Go Back</GoBack>
+      <GoBack>
+        <Link to={goBack}>&lt;-- Go Back</Link>
+      </GoBack>
       <FilterSelector onTypeChange={handleSearchTypeChange} />
       <TweetsList
         tweets={tweets}
