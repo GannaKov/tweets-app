@@ -19,6 +19,7 @@ export const Container = styled.div`
   padding: 0px 16px 16px;
 `;
 export const Link = styled(NavLink)`
+  box-sizing: content-box;
   width: 70px;
   text-align: center;
   padding: 8px 16px;

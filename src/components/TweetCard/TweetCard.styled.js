@@ -25,8 +25,8 @@ export const TweetWrapper = styled.li`
 export const AvatarWrapper = styled.div`
   margin: 178px auto 26px;
   object-fit: cover;
-  width: 62px;
-  height: 62px;
+  width: 80px;
+  height: 80px;
   border: 8px solid rgba(235, 216, 255, 1);
   border-radius: 100%;
   overflow: hidden;
@@ -34,8 +34,8 @@ export const AvatarWrapper = styled.div`
     0px 4.39px 4.39px 0px rgba(0, 0, 0, 0.06),
     inset 0px -2.2px 4.39px 0px rgba(174, 123, 227, 1);
   img {
-    width: 62px;
-    height: 62px;
+    width: 64px;
+    height: 64px;
     object-fit: cover;
   }
   &::before {
@@ -48,7 +48,7 @@ export const AvatarWrapper = styled.div`
 
     height: 8px;
     background-color: rgba(235, 216, 255, 1);
-    width: 153px;
+    width: 151px;
 
     box-shadow: inset 0px 3.44px 2.58px 0px rgba(251, 248, 255, 1),
       0px 3.44px 3.44px 0px rgba(0, 0, 0, 0.06),
@@ -64,7 +64,7 @@ export const AvatarWrapper = styled.div`
 
     height: 8px;
     background-color: rgba(235, 216, 255, 1);
-    width: 153px;
+    width: 151px;
 
     box-shadow: inset 0px 3.44px 2.58px 0px rgba(251, 248, 255, 1),
       0px 3.44px 3.44px 0px rgba(0, 0, 0, 0.06),
