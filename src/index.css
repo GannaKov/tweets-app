@@ -1,9 +1,10 @@
-@import-normalize; /* bring in normalize.css styles */
-*,
+@import-normalize;
+
+/* *, already in normilize
 *::before,
 *::after {
   box-sizing: border-box;
-}
+} */
 body {
   margin: 0;
   font-family: "Montserrat", "Roboto", "Oxygen", "Ubuntu", sans-serif;
