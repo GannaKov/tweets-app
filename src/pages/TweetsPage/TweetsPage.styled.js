@@ -17,7 +17,7 @@ export const Link = styled(NavLink)`
 `;
 export const GoBack = styled.button`
   margin-left: 28px;
-  width: 106px;
+  width: 115px;
   height: 30px;
   padding: 8px auto;
   border-radius: 6px;
