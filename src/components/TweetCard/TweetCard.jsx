@@ -56,7 +56,7 @@ export default function TweetCard({
       <FollowersQuantity>
         {currentTweet.followers.toLocaleString("en-US")} Followers
       </FollowersQuantity>
-      <Button onClick={handleClick} isFollowing={isFollowing}>
+      <Button type="button" onClick={handleClick} isFollowing={isFollowing}>
         <ButtonText>{isFollowing ? "Following" : "Follow"}</ButtonText>
       </Button>
     </TweetWrapper>

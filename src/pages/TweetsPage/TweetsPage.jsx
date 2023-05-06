@@ -129,7 +129,7 @@ export default function TweetsPage() {
   const goBack = location.state?.from ?? "/";
   return (
     <PageWrapper>
-      <GoBack>
+      <GoBack type="button">
         <Link to={goBack}>&lt;-- Go Back</Link>
       </GoBack>
       <FilterSelector onTypeChange={handleSearchTypeChange} />
@@ -140,7 +140,7 @@ export default function TweetsPage() {
         followings={followings}
       />
       {page < totalPages && (
-        <Button onClick={handleClick}>
+        <Button type="button" onClick={handleClick}>
           <ButtonText>Load More</ButtonText>
         </Button>
       )}
