@@ -1,6 +1,6 @@
 import React from "react";
 import { TweetsListWrapper } from "./TweetsList.styled";
-import TweetCard from "../../components/TweetCard";
+import TweetCard from "components/TweetCard/TweetCard";
 
 export default function TweetsList({
   tweets,
